@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.datasets import load_boston
+from multi_objective import RidgeGA
 
 
 def load_dataset():
@@ -26,10 +27,15 @@ def standard_scaler(dataframe):
     return dataframe_sc
 
 
+def run_ridge_ga(X, y):
+    ridge_ga = RidgeGA(X, y, 10)
+    ridge_ga.run()
+    result = ridge_ga.result
+    print(result)
+
+
 if __name__ == '__main__':
     X, y = load_dataset()
     X_poly = polynomial_features(X)
-    X_poly_sc = standard_scaler(X_poly) 
-
-    print(X_poly_sc.head())
-    print(X_poly_sc.shape)
+    X_poly_sc = standard_scaler(X_poly)
+    run_ridge_ga(X, y)
